@@ -1,10 +1,11 @@
-﻿using System.Net.Http.Headers;
+﻿using Common.Structures.HttpAuthentication;
+using System.Net.Http.Headers;
 using static System.Convert;
 using static System.Text.Encoding;
 
 namespace Common.Structures.HttpBasicAuthentication
 {
-    public struct BasicAuthenticationCredentials
+    public class BasicAuthenticationCredentials : IHttpAuthentication
     {
         private const string Basic = nameof(Basic);
 
