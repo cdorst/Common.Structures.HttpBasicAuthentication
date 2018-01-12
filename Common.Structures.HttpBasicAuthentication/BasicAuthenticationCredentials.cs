@@ -1,27 +1,23 @@
 ﻿using Common.Structures.HttpAuthentication;
-using System.Net.Http.Headers;
 using static System.Convert;
 using static System.Text.Encoding;
 
 namespace Common.Structures.HttpBasicAuthentication
 {
-    public class BasicAuthenticationCredentials : IHttpAuthentication
+    public class BasicAuthenticationCredentials : HttpAuthentication
     {
         private const string Basic = nameof(Basic);
 
-        public BasicAuthenticationCredentials(string user, string secret)
+        private readonly string _secret;
+        private readonly string _user;
+
+        public BasicAuthenticationCredentials(string user, string secret) : base(Basic)
         {
-            User = user;
-            Secret = secret;
+            _secret = secret;
+            _user = user;
         }
 
-        public string User { get; set; }
-        public string Secret { get; set; }
-
-        public AuthenticationHeaderValue Header
-            => new AuthenticationHeaderValue(Basic, HeaderValue);
-
-        private string HeaderValue
-            => ToBase64String(UTF8.GetBytes($"{User}:{Secret}"));
+        protected override string Value
+            => ToBase64String(UTF8.GetBytes($"{_user}:{_secret}"));
     }
 }
