@@ -10,6 +10,9 @@ namespace Common.Structures.HttpBasicAuthentication
         public BasicAuthenticationCredentials(string user, string secret)
             : base(Basic, ToBase64String(UTF8.GetBytes($"{user}:{secret}")))
         {
+            User = user;
         }
+
+        public string User { get; set; }
     }
 }
